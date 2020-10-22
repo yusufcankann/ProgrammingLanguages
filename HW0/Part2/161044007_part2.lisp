@@ -1,10 +1,5 @@
 ;;;; 161044007 - YUSUF CAN KAN
 
-
-;;; Important Note:
-;;; Please provide empty file for output file. If you don't provide
-;;; empty file it appends the result at the end.
-
 ;;;; VARIABLES
 (setf my_list nil) ; Creates an empty list for storing boundaries.
 
