@@ -136,10 +136,8 @@
   (setf result ())
   (setq string_for_codes "")
   (cond
-    ((= (list-length huffman_tree) 2) (list (cadr huffman_tree) "0"))
-    ((equal huffman_tree nil)())
-    (t (huffman_encode  huffman_tree string_for_codes result)))
-)
+    ((= (list-length huffman_tree) 2) (list (list (cadr huffman_tree) "0")))
+    (t (huffman_encode  huffman_tree string_for_codes result))))
 
 ;; Write file function. It prints the results in a file.
 (defun write_file (x y)
@@ -174,13 +172,15 @@
 ;; MAIN
 (defun main ()
   (setf words (read_file)) ;Read file
+
   (setf frq ())
   (setf frq (construct_freq_list words frq))
   (setf tree (car (create_huffman_wrap (sort_my_list frq))))
 
   (clear_file) ;If there is an existing file it clears it. If there is not
-              ; It creates an empty file.
+               ; It creates an empty file.
   (write_result (sort_result_list (huffman_encode_wrap tree)))
+
 )
 
 
