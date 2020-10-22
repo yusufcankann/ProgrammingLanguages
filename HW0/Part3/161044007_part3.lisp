@@ -36,7 +36,7 @@
                       (concatenate 'string my_string (string char))))
           ((string= char " ")     ;if readed character is not number
             ;convert number to int and add it in a list.
-            (progn (setf my_list (cons (parse-integer my_string) my_list))
+            (progn (if (not (string= my_string "")) (setf my_list (cons (parse-integer my_string) my_list)))
                   (setq my_string ""))) ;clear storage string.
         )
    )
