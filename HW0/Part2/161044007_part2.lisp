@@ -69,7 +69,7 @@
                 ((or (and (string<= char "9") (string>= char "0")) (string= char "-")) (setq my_string
                                             (concatenate 'string my_string (string char)))) ;if readed character is a number, store it in string
                 ((string= char " ")     ;if readed character is not number
-                  (progn (setf my_list (cons (parse-integer my_string) my_list))  ;convert number to int and add it in a list.
+                  (progn (if (not (string= my_string "")) (setf my_list (cons (parse-integer my_string) my_list)))  ;convert number to int and add it in a list.
                         (setq my_string ""))) ;clear storage string.
               )
          )
@@ -110,18 +110,27 @@
   )
 )
 
-
+; Checks if given data is number.
+(defun number_check (data)
+  (if (and (<= data 9)(>= data 9)) t nil)
+)
 
 
 ;;;; MAIN PART
 
 (read_file) ;Read the file and store boundaries.
 
+(if (or (not (= (list-length my_list) 2))
+            (number_check (car my_list))
+              (number_check (cadr my_list)))
+              (print "Please provide proper input file!")
+              (progn
+                (clear_file);; This function clears the "primedistribution.txt" file if it exist,
+                             ;; otherwise it creates itfile.
 
-(clear_file) ;; This function clears the "primedistribution.txt" file if it exist,
-             ;; otherwise it creates itfile.
+                (if (< (length my_list) 2) ; Control if given file is empty or not.
+                  (print "Please provide boundaries!")
+                  (primecrawler (car my_list) (cadr my_list)))
 
-
-(if (< (length my_list) 2) ; Control if given file is empty or not.
-  (print "Please provide boundaries!")
-  (primecrawler (car my_list) (cadr my_list)))
+                )
+              )
