@@ -1,46 +1,25 @@
 ;; 161044007 YUSUF CAN KAN
 
-;; TO DO
-; => Does write function prints string or list element? (Small-big letter sensivity.)
-
-
-; ; FISRT VERSION
-; (defun read_file ()
-;   (let ((my_string "")(my_list nil)) ;set a local variable reading characters
-;     (with-open-file (stream "./paragraph.txt") ;open the file
-;       (do ((char (read-char stream nil) ;read the file.
-;                   (read-char stream nil)))
-;                   ((null char))
-;             (setq my_string (concatenate 'string my_string (string char)))
-;             (setf my_list (cons my_string my_list))
-;             (setq my_string "")
-;       ) (close stream);Close the file.
-;     )
-;   (setf my_list (reverse my_list))) ; Reverse the list for sorted order.
-; )
-
-
-; Read file function. It reads boundaries and stores in a list.
+; Read file function. It reads the paragraph and stores in a list.
 (defun read_file ()
-(let ((my_string "")(my_list nil)) ;set a local variable reading numbers
-(with-open-file (stream "./paragraph.txt") ;open the file
-  (do ((char (read-char stream nil) ;read the file.
-              (read-char stream nil)))
-              ((null char))
-        (setq my_string (concatenate 'string my_string (string char)))
-        (if (and (string<= my_string "z") (string>= my_string "A"))
-          (setf my_list (cons (read-from-string my_string) my_list))
-          (cond
-            ((string= my_string " ")(setf my_list (cons "SPACE" my_list)))
-            ((string= my_string #\Newline) (setf my_list (cons "NEW LINE" my_list)))
-            (t (setf my_list (cons my_string my_list)))
-          ))
-        (setq my_string "")
-  ) (close stream);Close the file.
+  (let ((my_string "")(my_list nil)) ;set a local variable reading characters
+    (with-open-file (stream "./paragraph.txt") ;open the file
+      (do ((char (read-char stream nil) ;read the file.
+                  (read-char stream nil)))
+                  ((null char))
+            (setq my_string (concatenate 'string my_string (string char)))
+            (if (and (string<= my_string "z") (string>= my_string "A"))
+              (setf my_list (cons my_string my_list))
+              (cond
+                ((string= my_string " ")(setf my_list (cons "SPACE" my_list)))
+                ((string= my_string #\Newline) (setf my_list (cons "NEW LINE" my_list)))
+                (t (setf my_list (cons my_string my_list)))
+              ))
+            (setq my_string "")
+      ) (close stream);Close the file.
+    )
+  (setf my_list (reverse my_list))) ; Reverse the list for sorted order.
 )
-(setf my_list (reverse my_list)) ; Reverse the list for sorted order.
-))
-
 
 ;;This function takes an element(character and frequenxy list and does the following;
 ;; -If element frequency already added in the list it increases the frequency and
