@@ -20,13 +20,13 @@
         )
    )
    (if (not (string= my_string ""))
-      (setf my_list (cons (read-from-string my_string) my_list)))
+      (setf my_list (cons my_string my_list)))
     (close stream)) ;Close the file.
   )
 
   (setf my_list (reverse my_list)) ; Reverse the list for obtaining the same order
                                    ; in the file.
-                                   
+
   ;;;; WRITING PART
   (with-open-file (write_stream "./flattened_list.txt"
                        :direction :output
