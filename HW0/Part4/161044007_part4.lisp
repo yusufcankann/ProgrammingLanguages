@@ -1,19 +1,33 @@
 ;; 161044007 YUSUF CAN KAN
 
-; Read file function. It reads the paragraph and stores in a list.
+; Converts given character string into a list.
+(defun convert_to_string_list (list)
+  (if (not (equal list nil))
+    (cond 
+      ;; Sets space with "SPACE" string.
+      ((equal (car list) #\Space ) (cons "SPACE" (convert_to_string_list (cdr list)))) 
+      ;converts first character to string and recursively calls rest of the list.
+      (t (progn (cons (string (car list)) (convert_to_string_list (cdr list)))))                      
+)))
+
+
+;; Reads every line and every character recursively and returns as a list.
+(defun read_recursively (file)
+ (let ((line (read-line file nil nil)))
+  (if (not (eql line nil))
+      ;Appends new line every end of the operation.
+      (append (append (convert_to_string_list (coerce line 'list)) (read_recursively file)) (list "NEWLINE"))
+)))
+
+
+
 (defun read_file ()
-  (let ((my_string "")(my_list nil)) ;set a local variable reading characters
-    (with-open-file (stream "./paragraph.txt") ;open the file
-      (do ((char (read-char stream nil) ;read the file.
-                  (read-char stream nil)))
-                  ((null char))
+	; Reads a file containing one word per line and returns a list of words (each word is in turn a list of characters)."
+(with-open-file (stream "./paragraph.txt")
+  (reverse (cdr (reverse (read_recursively stream)))) ;;Reads every line and every character with read_recursively function.
+))
+  
 
-            (print "---")
-              (print char)
-            (print "-----")
-            (setq my_string (concatenate 'string my_string (string char)))
-
-))))
 
 ;;This function takes an element(character and frequenxy list and does the following;
 ;; -If element frequency already added in the list it increases the frequency and
@@ -165,6 +179,7 @@
 
 ;; MAIN
 (defun main ()
+
   (setf words (read_file)) ;Read file
 
   (setf frq ())
@@ -181,14 +196,3 @@
 (main)
 
 
-
-
-
-
-
-
-
-
-
-
-;

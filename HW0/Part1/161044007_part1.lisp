@@ -12,14 +12,13 @@
                 (read-char stream nil)))
                 ((null char))
         (cond
-          ((not (or (string= char "(") (or (string= char " ") (string= char ")")))) (setq my_string
+          ((not (or (equal char #\Newline) (string= char "(") (or (string= char " ") (string= char ")")))) (setq my_string
                                       (concatenate 'string my_string (string char)))) ;if readed character is a number, store it in string
           ((or (string= char "(") (or (string= char " ") (string= char ")")))     ;if readed character is not number
-            (progn (if (not (string= my_string "")) (setf my_list (cons (read-from-string my_string) my_list)) )  ;convert number to int and add it in a list.
+            (progn (if (not (string= my_string "")) (setf my_list (cons my_string my_list)) )  ;convert number to int and add it in a list.
                   (setq my_string ""))) ;clear storage string.
         )
    )
-
    (if (not (string= my_string ""))
       (setf my_list (cons (read-from-string my_string) my_list)))
     (close stream)) ;Close the file.
