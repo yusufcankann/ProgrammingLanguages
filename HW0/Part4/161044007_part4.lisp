@@ -23,7 +23,7 @@
 
 (defun read_file ()
 	; Reads a file containing one word per line and returns a list of words (each word is in turn a list of characters)."
-(with-open-file (stream "./paragraph.txt")
+(with-open-file (stream "./paragraph.txt" :if-does-not-exist :create)
   (reverse (cdr (reverse (read_recursively stream)))) ;;Reads every line and every character with read_recursively function.
 ))
   
