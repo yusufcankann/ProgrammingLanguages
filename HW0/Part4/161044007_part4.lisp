@@ -7,19 +7,13 @@
       (do ((char (read-char stream nil) ;read the file.
                   (read-char stream nil)))
                   ((null char))
+
+            (print "---")
+              (print char)
+            (print "-----")
             (setq my_string (concatenate 'string my_string (string char)))
-            (if (and (string<= my_string "z") (string>= my_string "A"))
-              (setf my_list (cons my_string my_list))
-              (cond
-                ((string= my_string " ")(setf my_list (cons "SPACE" my_list)))
-                ((string= my_string #\Newline) (setf my_list (cons "NEW LINE" my_list)))
-                (t (setf my_list (cons my_string my_list)))
-              ))
-            (setq my_string "")
-      ) (close stream);Close the file.
-    )
-  (setf my_list (reverse my_list))) ; Reverse the list for sorted order.
-)
+
+))))
 
 ;;This function takes an element(character and frequenxy list and does the following;
 ;; -If element frequency already added in the list it increases the frequency and

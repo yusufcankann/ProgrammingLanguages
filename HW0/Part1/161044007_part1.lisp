@@ -21,7 +21,7 @@
    )
 
    (if (not (string= my_string ""))
-      (setf my_list (cons my_string my_list)))
+      (setf my_list (cons (read-from-string my_string) my_list)))
     (close stream)) ;Close the file.
   )
 
