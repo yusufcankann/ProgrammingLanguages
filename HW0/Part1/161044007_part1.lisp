@@ -7,7 +7,7 @@
 
   ;;;; READING PART
   (let ((my_string "")) ;set a local variable for reading file
-  (with-open-file (stream "./nested_list.txt") ;open the file
+  (with-open-file (stream "./nested_list.txt" :if-does-not-exist :create) ;open the file
       (do ((char (read-char stream nil) ;read the file.
                 (read-char stream nil)))
                 ((null char))
