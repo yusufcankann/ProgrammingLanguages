@@ -25,7 +25,7 @@
 ;; Read file function. It reads integers and stores in a list.
 (defun read_file ()
   (let ((my_string "")) ;set a local variable reading numbers
-  (with-open-file (stream "./integer_inputs.txt") ;open the file
+  (with-open-file (stream "./integer_inputs.txt" :if-does-not-exist :create) ;open the file
       (do ((char (read-char stream nil) ;read the file.
                 (read-char stream nil)))
                 ((null char))
