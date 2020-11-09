@@ -1,20 +1,20 @@
 For Part1;
 
-	flex gpplexer.l
+flex gpplexer.l
 
-	gcc lex.yy.c
+gcc lex.yy.c
 
-	./a.out 
+./a.out 
 
-	or 
+or 
 
-	./a.out inputfile
+./a.out inputfile
 
 
 For Part2;
 
-	clisp gpplexer.lisp
+clisp gpplexer.lisp
 
-	or
+or
 
-	clisp gpplexer.lisp inputfile
+clisp gpplexer.lisp inputfile
