@@ -31,7 +31,7 @@
     #define IDENTIFIER 29
     #define WHITESPACE 30
     #define VALUE 31
-    #define QUOTES 31
+    #define QUOTES 32
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -78,11 +78,15 @@ false   {return KW_FALSE;}
                 return COMMENT;
             }
 
-[a-zA-Z_][a-zA-Z0-9_]* {return IDENTIFIER;}
 [0]|[1-9][0-9]* {return VALUE;}
+[a-zA-Z_][a-zA-Z0-9_]* {return IDENTIFIER;}
 [ \t\r]*    {return WHITESPACE;}
 [\n]    {return NEW_LINE;}
 
+
+[a-zA-Z0-9]+[*/+,;-]+ {return ERROR;}
+[0-9]+.[^0-9\t\r\n)"[[:space:]]] {return ERROR;}
+[a-zA-Z_]+.[^a-zA-Z0-9_)\t\r\n [[:space:]]]+ {return ERROR;}
 .|[0][a-zA-Z0-9]+|[*]{3,}|[+]{2,}|[-]{2,}|[/]{2,}|["]{3,}|[,]{2,}|[;]{3,} {return ERROR;}
 
 %%
@@ -167,10 +171,7 @@ int main(int argc, char **argv){
                 if(new_line_flag==2) break;
             }else new_line_flag=0;
 
-            if(lex_control(lexreturn,&fp)==-1){
-                fclose(fp);
-                return 0;
-            }
+            lex_control(lexreturn,&fp);
             lexreturn=yylex();
         }
     }
