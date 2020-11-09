@@ -526,17 +526,45 @@ char *yytext;
 #line 1 "gpp_lexer.l"
 #line 2 "gpp_lexer.l"
     #define ERROR -1
-    #define RETURN 5
-    #define NEW_LINE 1
-    #define IDENTIFIER 2
-    #define WHITESPACE 3
-    #define QUOTES 4
+    #define KW_AND 1
+    #define KW_OR 2
+    #define KW_NOT 3
+    #define KW_EQUAL 4
+    #define KW_LESS 5
+    #define KW_NIL 6
+    #define KW_LIST 7
+    #define KW_APPEND 8
+    #define KW_CONCAT 9
+    #define KW_SET 10
+    #define KW_DEFFUN 11
+    #define KW_FOR 12
+    #define KW_IF 13
+    #define KW_EXIT 14
+    #define KW_LOAD 15
+    #define KW_DISP 16
+    #define KW_TRUE 17
+    #define KW_FALSE 18
+    #define OP_PLUS 19
+    #define OP_MINUS 20
+    #define OP_DIV 21
+    #define OP_MULT 22
+    #define OP_OP 23
+    #define OP_CP 24
+    #define OP_DBLMULT 25
+    #define OP_COMMA 26
+    #define COMMENT 27
+    #define NEW_LINE 28
+    #define IDENTIFIER 29
+    #define WHITESPACE 30
+    #define VALUE 31
+    #define QUOTES 31
+
     #include <stdio.h>
     #include <stdlib.h>
 
     int quote=0;
-#line 539 "lex.yy.c"
-#line 540 "lex.yy.c"
+#line 567 "lex.yy.c"
+#line 568 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -753,9 +781,9 @@ YY_DECL
 		}
 
 	{
-#line 16 "gpp_lexer.l"
+#line 44 "gpp_lexer.l"
 
-#line 759 "lex.yy.c"
+#line 787 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -814,183 +842,182 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 17 "gpp_lexer.l"
-{printf("KW_AND\n"); return RETURN;}
+#line 45 "gpp_lexer.l"
+{return KW_AND;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 18 "gpp_lexer.l"
-{printf("KW_OR\n"); return RETURN;}
+#line 46 "gpp_lexer.l"
+{return KW_OR;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 19 "gpp_lexer.l"
-{printf("KW_NOT\n"); return RETURN;}
+#line 47 "gpp_lexer.l"
+{return KW_NOT;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 20 "gpp_lexer.l"
-{printf("KW_EQUAL\n"); return RETURN;}
+#line 48 "gpp_lexer.l"
+{return KW_EQUAL;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 21 "gpp_lexer.l"
-{printf("KW_LESS\n"); return RETURN;}
+#line 49 "gpp_lexer.l"
+{return KW_LESS;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 22 "gpp_lexer.l"
-{printf("KW_NIL\n"); return RETURN;}
+#line 50 "gpp_lexer.l"
+{return KW_NIL;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 23 "gpp_lexer.l"
-{printf("KW_LIST\n"); return RETURN;}
+#line 51 "gpp_lexer.l"
+{return KW_LIST;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 24 "gpp_lexer.l"
-{printf("KW_APPEND\n"); return RETURN;}
+#line 52 "gpp_lexer.l"
+{return KW_APPEND;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 25 "gpp_lexer.l"
-{printf("KW_CONCAT\n"); return RETURN;}
+#line 53 "gpp_lexer.l"
+{return KW_CONCAT;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 26 "gpp_lexer.l"
-{printf("KW_SET\n"); return RETURN;}
+#line 54 "gpp_lexer.l"
+{return KW_SET;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 27 "gpp_lexer.l"
-{printf("KW_DEFFUN\n"); return RETURN;}
+#line 55 "gpp_lexer.l"
+{return KW_DEFFUN;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 28 "gpp_lexer.l"
-{printf("KW_FOR\n"); return RETURN;}
+#line 56 "gpp_lexer.l"
+{return KW_FOR;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 29 "gpp_lexer.l"
-{printf("KW_IF\n"); return RETURN;}
+#line 57 "gpp_lexer.l"
+{return KW_IF;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 30 "gpp_lexer.l"
-{printf("KW_EXIT\n"); return RETURN;}
+#line 58 "gpp_lexer.l"
+{return KW_EXIT;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 31 "gpp_lexer.l"
-{printf("KW_LOAD\n"); return RETURN;}
+#line 59 "gpp_lexer.l"
+{return KW_LOAD;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 32 "gpp_lexer.l"
-{printf("KW_DISP\n"); return RETURN;}
+#line 60 "gpp_lexer.l"
+{return KW_DISP;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 33 "gpp_lexer.l"
-{printf("KW_TRUE\n"); return RETURN;}
+#line 61 "gpp_lexer.l"
+{return KW_TRUE;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 34 "gpp_lexer.l"
-{printf("KW_FALSE\n"); return RETURN;}
+#line 62 "gpp_lexer.l"
+{return KW_FALSE;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 36 "gpp_lexer.l"
-{printf("OP_PLUS\n"); return RETURN;}
+#line 64 "gpp_lexer.l"
+{return OP_PLUS;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 37 "gpp_lexer.l"
-{printf("OP_MINUS\n"); return RETURN;}
+#line 65 "gpp_lexer.l"
+{return OP_MINUS;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 38 "gpp_lexer.l"
-{printf("OP_DIV\n"); return RETURN;}
+#line 66 "gpp_lexer.l"
+{return OP_DIV;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 39 "gpp_lexer.l"
-{printf("OP_MULT\n"); return RETURN;}
+#line 67 "gpp_lexer.l"
+{return OP_MULT;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 40 "gpp_lexer.l"
-{printf("OP_OP\n"); return RETURN;}
+#line 68 "gpp_lexer.l"
+{return OP_OP;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 41 "gpp_lexer.l"
-{printf("OP_CP\n"); return RETURN;}
+#line 69 "gpp_lexer.l"
+{return OP_CP;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 42 "gpp_lexer.l"
-{printf("OP_DBLMULT\n"); return RETURN;}
+#line 70 "gpp_lexer.l"
+{return OP_DBLMULT;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 43 "gpp_lexer.l"
+#line 71 "gpp_lexer.l"
 {return QUOTES;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 44 "gpp_lexer.l"
-{printf("OP_COMMA\n"); return RETURN;}
+#line 72 "gpp_lexer.l"
+{return OP_COMMA;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 45 "gpp_lexer.l"
-{printf("COMMENT\n");
-                int r;
+#line 73 "gpp_lexer.l"
+{   int r;
                 r=yylex();
                 while(r!= NEW_LINE){
                     r=yylex();
                 }
-                return RETURN;
+                return COMMENT;
             }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 54 "gpp_lexer.l"
+#line 81 "gpp_lexer.l"
 {return IDENTIFIER;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 56 "gpp_lexer.l"
-{printf("VALUE\n"); return RETURN;}
+#line 82 "gpp_lexer.l"
+{return VALUE;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 58 "gpp_lexer.l"
+#line 83 "gpp_lexer.l"
 {return WHITESPACE;}
 	YY_BREAK
 case 32:
 /* rule 32 can match eol */
 YY_RULE_SETUP
-#line 60 "gpp_lexer.l"
+#line 84 "gpp_lexer.l"
 {return NEW_LINE;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 62 "gpp_lexer.l"
+#line 86 "gpp_lexer.l"
 {return ERROR;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 64 "gpp_lexer.l"
+#line 88 "gpp_lexer.l"
 ECHO;
 	YY_BREAK
-#line 994 "lex.yy.c"
+#line 1021 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1995,62 +2022,99 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 64 "gpp_lexer.l"
+#line 88 "gpp_lexer.l"
 
 
 int yywrap(){}
 
 /*Token control.*/
-int lex_control(int lexreturn,int file){
+int lex_control(int lexreturn,FILE **fp){
     if(lexreturn==ERROR){
-        printf("SYNTAX_ERROR %s cannot be tokenized.\n",yytext);
+        fprintf(*fp,"SYNTAX_ERROR %s cannot be tokenized.\n",yytext);
         return -1;
     }
-    else if(lexreturn==IDENTIFIER) printf("IDENTIFIER\n");
+    else if(lexreturn==KW_AND) fprintf(*fp,"KW_AND\n");
+    else if(lexreturn==KW_OR) fprintf(*fp,"KW_OR\n");
+    else if(lexreturn==KW_NOT) fprintf(*fp,"KW_NOT\n");
+    else if(lexreturn==KW_EQUAL) fprintf(*fp,"KW_EQUAL\n");
+    else if(lexreturn==KW_LESS) fprintf(*fp,"KW_LESS\n");
+    else if(lexreturn==KW_NIL) fprintf(*fp,"KW_NIL\n");
+    else if(lexreturn==KW_LIST) fprintf(*fp,"KW_LIST\n");
+    else if(lexreturn==KW_APPEND) fprintf(*fp,"KW_APPEND\n");
+    else if(lexreturn==KW_CONCAT) fprintf(*fp,"KW_CONCAT\n");
+    else if(lexreturn==KW_SET) fprintf(*fp,"KW_SET\n");
+    else if(lexreturn==KW_DEFFUN) fprintf(*fp,"KW_DEFFUN\n");
+    else if(lexreturn==KW_FOR) fprintf(*fp,"KW_FOR\n");
+    else if(lexreturn==KW_IF) fprintf(*fp,"KW_IF\n");
+    else if(lexreturn==KW_EXIT) fprintf(*fp,"KW_EXIT\n");
+    else if(lexreturn==KW_LOAD) fprintf(*fp,"KW_LOAD\n");
+    else if(lexreturn==KW_DISP) fprintf(*fp,"KW_DISP\n");
+    else if(lexreturn==KW_TRUE) fprintf(*fp,"KW_TRUE\n");
+    else if(lexreturn==KW_FALSE) fprintf(*fp,"KW_FALSE\n");
+    else if(lexreturn==OP_PLUS) fprintf(*fp,"KW_PLUS\n");
+    else if(lexreturn==OP_MINUS) fprintf(*fp,"KW_MINUS\n");
+    else if(lexreturn==OP_DIV) fprintf(*fp,"KW_DIV\n");
+    else if(lexreturn==OP_MULT) fprintf(*fp,"OP_MULT\n");
+    else if(lexreturn==OP_OP) fprintf(*fp,"OP_OP\n");
+    else if(lexreturn==OP_CP) fprintf(*fp,"OP_CP\n");
+    else if(lexreturn==OP_DBLMULT) fprintf(*fp,"OP_DBLMULT\n");
+    else if(lexreturn==OP_COMMA) fprintf(*fp,"OP_COMMA\n");
+    else if(lexreturn==COMMENT) fprintf(*fp,"COMMENT\n");
+    else if(lexreturn==IDENTIFIER) fprintf(*fp,"IDENTIFIER\n");
+    else if(lexreturn==VALUE) fprintf(*fp,"VALUE\n");
     else if(lexreturn==QUOTES){
         if(quote==0){
             quote++;
-            printf("OP_OC\n");
+            fprintf(*fp,"OP_OC\n");
         }
         else{
-            printf("OP_CC\n");
+            fprintf(*fp,"OP_CC\n");
             quote=0;  
         } 
     }
     else
-        if(lexreturn==NEW_LINE){
-            if(file!=1) printf("> ");
+        if(lexreturn==NEW_LINE)
             quote=0;
-        }
     
     return 0;
 }
 int main(int argc, char **argv){
     int lexreturn=0;
-
+    int new_line_flag=0;
+    FILE *fp;
+    fp = fopen("parsed_cpp.txt", "w");
 
     /*READ FILE PART*/
     if (argc>1){
         yyin= fopen(argv[1],"r");
-    
         while((lexreturn=yylex())!=0){
-            lex_control(lexreturn,1);
+            if(lex_control(lexreturn,&fp)==-1) break;
         }
 
         fclose(yyin);
         yyin=stdin;
         yyrestart(yyin);
     }
-
-    /*INTERPRETER PART.*/
-    printf("> ");
-    lexreturn=yylex();
-    while(1){
-        if(lex_control(lexreturn,0)==-1){
-            return 0;
-        }
+    else{
+        /*INTERPRETER PART.*/
         lexreturn=yylex();
+        while(1){
+            /*Empty string, break loop case.*/
+            if(lexreturn==28){
+                new_line_flag++;
+                if(new_line_flag==2) break;
+            }else new_line_flag=0;
+
+            if(lex_control(lexreturn,&fp)==-1){
+                fclose(fp);
+                return 0;
+            }
+            lexreturn=yylex();
+        }
     }
 
+
+
+    fclose(fp);
     return 0;
 }
