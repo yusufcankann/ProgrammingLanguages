@@ -1,8 +1,35 @@
 ;;;; Yusuf Can Kan - 161044007
 
-(defun read_file ()
+(setq quote 0) ;; For quote sign. If this variable is 0, then it is open quote
+               ;; If it is 1, it is close
+
+
+;; Write file function. It prints the results in a file.
+(defun write_file (x &optional (flag -1))
+  ;;; WRITING PART
+  (with-open-file (write_stream "./parsed_lisp.txt"
+        :direction :output
+        :if-exists :append
+        :if-does-not-exist :create)
+      (if (equal flag 1) (format write_stream "SYNTAX_ERROR ~a cannot be tokenized ~%" x)
+      (format write_stream "~a ~%" x))
+  (close write_stream)) ;Close the file
+)
+
+
+;; This function clears inside the "collatz_outputs.txt" file if it exis.
+;; If file does not exits it creates empty file.
+(defun clear_file ()
+  (with-open-file (write_stream "./parsed_lisp.txt"
+          :direction :output
+          :if-exists :supersede
+          :if-does-not-exist :create)
+    (close write_stream)) ;Close the file
+)
+
+(defun read_file (my_file)
 	; Reads a file containing one word per line and returns a list of words (each word is in turn a list of characters)."
-(with-open-file (stream "./test.g++" :if-does-not-exist :create)
+(with-open-file (stream my_file :if-does-not-exist :create)
   (reverse (cdr (reverse (read_recursively stream)))))) ;;Reads every line and every character with read_recursively function.
 
 ;; Reads every line and every character recursively and returns as a list.
@@ -24,8 +51,7 @@
       ;converts first character to string and recursively calls rest of the list.
       (t (progn (cons (string (car list)) (convert_to_string_list (cdr list))))))))
 
-;; It returns the token of given string if it is operator, digit or ideftifier..
-*
+
 
 ;; This function takes a list and control if its third element is whitespace.
 (defun third_whitespace_control (my_list)
@@ -150,15 +176,13 @@
         ((string= (car my_list) "deffun")  "KW_DEFFUN")
         ((string= (car my_list) "for")  "KW_FOR")
         ((string= (car my_list) "if")  "KW_IF")
-        ((string= (car my_list) "exit")  "KW_EXIT")
+        ((string= (car my_list) "exit")  "KW_EXIT") 
         ((string= (car my_list) "load")  "KW_LOAD")
         ((string= (car my_list) "disp")  "KW_DISP")
         ((string= (car my_list) "true")  "KW_TRUE")
         ((string= (car my_list) "false")  "KW_FALSE")
         (t nil)))
 
-
-(setq quote 0)
 (defun dfa (input)
   (setq op (is_op input))
   (setq kywrd (is_keyword input))
@@ -170,45 +194,55 @@
       ;Operator case
       ((not (equal op nil))
         (if (string= op "OP_OC") ;; " character case.
-          (if (= quote 0) (progn (format t "~a ~%" op) (setq quote (+ 1 quote))) (progn (format t "~a ~%" "OP_CC") (setq quote 0)))
-      (format t "~a ~%" op)))
+          (if (= quote 0) (progn (write_file op) (setq quote (+ 1 quote))) (progn (write_file "OP_CC") (setq quote 0)))
+      (write_file op)))
       
       ;keyword case
-      ((not (equal kywrd nil)) (format t "~a ~%" kywrd))
+      ((not (equal kywrd nil)) (write_file kywrd))
 
       ;identifier
-      ((not (equal (is_identifier_w (car input)) nil)) (format t "IDENTIFIER ~%"))
+      ((not (equal (is_identifier_w (car input)) nil)) (write_file "IDENTIFIER"))
 
       ;value
       ((not (equal (is_digit_w (car input)) nil))
         (if (and (string= (subseq (car input) 0 1) "0") (> (length (car input)) 1)) 
           (return-from dfa (car input))
-          ;(format t "VALUE ~%VALUE ~%")
-          (format t "VALUE ~%")))
+          (write_file "VALUE")))
       (t 
         (if (not (string= (car input) "NewLine")) (return-from dfa (car input))))
     ))
 
-
   (if (and (string= op "COMMENT") (not (equal (cdr input) nil)) (not (string= (cadr input) "NewLine"))) 
-    (dfa (cddr input)) (dfa (cdr input)))
-)
+    (dfa (cddr input)) (dfa (cdr input))))
 
 
 
+;; Program takes input from given file.
+(defun intepreter_file (file)
+  (setq error_check (dfa (split_input (read_file file) nil "")))
+  (if (not (equal error_check t)) (write_file error_check 1)))
 
+
+
+; Takes input from terminal until user gives an empty string. (2 times enter.)
+(defun read_terminal (str)
+  (setq input (read-line ))
+  (if (string= input "") str (read_terminal (concatenate 'string str (concatenate 'string input (string #\NewLine))))))
+
+
+(defun interpreter ()
+  (setq input (convert_to_string_list (coerce (read_terminal "") 'list)))
+  (setq error_check (dfa (split_input input nil "")))
+  (if (not (equal error_check t)) (write_file error_check 1)))
 
 (defun main ()
-  (setf a (read_file))
-  (setf b nil)
-  (setq c "")
-  ;(print (split_input a b c))
-
-  (setq error_check (dfa (split_input a b c)))
-  (if (not (equal error_check t)) (format t "SYNTAX_ERROR ~a cannot be tokenized" error_check)   ) 
+  (clear_file)
+  (if (null *args*)
+    (interpreter) ;; If there is no input file provided as argument
+    (intepreter_file (car *args*)) ;; If there is file provided as an argumenT
+  )
 )
 
 
 (main)
-
 
